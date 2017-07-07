@@ -26,18 +26,15 @@ public class EstoqueWS {
 	private ItemDao dao = new ItemDao();
 
 	@WebMethod(operationName = "todosOsItens")
-	@ResponseWrapper(localName = "itens")
 	@WebResult(name = "itens")
-	@RequestWrapper(localName = "listaItens")
 	public ListaItens getItens(@WebParam(name = "filtros") Filtros filtros) {
-
+		System.out.println("Chamando todosItens()");
 		List<Filtro> lista = filtros.getLista();
-		List<Item> result = dao.todosItens(lista);
-		return new ListaItens(result);
+		List<Item> itensResultado = dao.todosItens(lista);
+		return new ListaItens(itensResultado);
 	}
-
+	
 	@WebMethod(operationName = "CadastrarItem")
-	@WebResult(name = "item")
 	public Item cadastrarItem(
 			@WebParam(name = "tokenUsuario", header = true) TokenUsuario token,
 			@WebParam(name = "item") Item item) 
